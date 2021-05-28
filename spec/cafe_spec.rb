@@ -2,6 +2,7 @@ require_relative '../models/menu_item'
 require_relative '../models/menu'
 require_relative '../models/order'
 require_relative '../models/cafe'
+require_relative '../views/cafe_view'
 
 describe MenuItem do
   it 'should create a menu item with name and price' do
@@ -105,7 +106,7 @@ describe Cafe do
     item = "latte"
     quantity = 1
     cafe.add_to_order(item, quantity)
-    expect(cafe.get_order().items().length).to be(1)
+    expect(cafe.get_order.items.length).to be(1)
   end
 
   it 'should validate a valid menu item' do
@@ -134,18 +135,50 @@ describe Cafe do
     # cafe.add_to_order(item, quantity)
     # expect(cafe.order_total).to be(12.00)
   end
+end
 
-  # it 'should define a welcome method' do
-  #   name = "My Cafe"
-  #   menu_items = {latte: 4.00, tea: 2.00}
-  #   cafe = Cafe.new(name, menu_items)
-  #   expect(cafe.welcome).to eq(nil)
-  # end
+describe CafeView do
+  it 'should print a welcome to the cafe' do
+    name = "My Cafe"
+    menu_items = {"latte" => 4.00, "tea" => 2.00}
+    cafe = Cafe.new(name, menu_items)
+    cafe_view = CafeView.new(cafe)
+    expect(cafe_view.welcome).to be(nil)
+  end
 
-  # it 'should define a print menu method' do
-  #   name = "My Cafe"
-  #   menu_items = {latte: 4.00, tea: 2.00}
-  #   cafe = Cafe.new(name, menu_items)
-  #   expect(cafe.print_menu).to eq(nil)
-  # end
+  it 'should print the menu for the cafe' do
+    name = "My Cafe"
+    menu_items = {"latte" => 4.00, "tea" => 2.00}
+    cafe = Cafe.new(name, menu_items)
+    cafe_view = CafeView.new(cafe)
+    expect(cafe_view.print_menu).to eq(nil)
+  end
+
+  it 'should print a message that item is invalid' do
+    name = "My Cafe"
+    menu_items = {"latte" => 4.00, "tea" => 2.00}
+    cafe = Cafe.new(name, menu_items)
+    cafe_view = CafeView.new(cafe)
+    expect(cafe_view.invalid_input).to eq(nil)
+  end
+
+  it 'should print the order summary for an empty order' do
+    name = "My Cafe"
+    menu_items = {"latte" => 4.00, "tea" => 2.00}
+    cafe = Cafe.new(name, menu_items)
+    cafe_view = CafeView.new(cafe)
+
+    expect(cafe_view.print_order).to eq(nil)
+  end
+
+  it 'should print the order summary with an order item' do
+    name = "My Cafe"
+    menu_items = {"latte" => 4.00, "tea" => 2.00}
+    cafe = Cafe.new(name, menu_items)
+    cafe_view = CafeView.new(cafe)
+    item = "latte"
+    quantity = 1
+    cafe.add_to_order(item, quantity)
+    expect(cafe_view.print_order).to eq(nil)
+  end
 end

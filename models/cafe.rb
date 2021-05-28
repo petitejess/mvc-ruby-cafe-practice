@@ -32,23 +32,9 @@ class Cafe
     @order
   end
 
-  def welcome
-    spacing = MenuItem::MENU_LIST_SPACING
-    message = Artii::Base.new
-    puts "\n"
-    puts message.asciify("Welcome to")
-    puts message.asciify("#{@name}!")
-  end
-
-  def print_menu
-    spacing = MenuItem::MENU_LIST_SPACING
-    @menu.display
-    puts "=" * spacing
-  end
-
   def order_total
     total = 0
-    @order.get_items.each do |item, quantity|
+    @order.items.each do |item, quantity|
       total += @menu.get_price(item) * quantity
     end
     return total
