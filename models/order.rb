@@ -3,11 +3,11 @@ class Order
       @order_items = Hash.new(0)  # A trick to create hash with default 0 as key, so can add value to already recorded key AND create key if none exist previously
   end
 
-  def add_item(name, quantity)
+  def add(name, quantity)
       @order_items[name] += quantity
   end
 
-  def get_items
+  def items
       @order_items
   end
 
